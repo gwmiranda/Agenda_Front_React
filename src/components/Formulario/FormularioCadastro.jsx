@@ -58,8 +58,8 @@ function FormularioCadastro() {
                         <IconButton><DeleteIcon/></IconButton>
                     </div>
                     <Stack spacing={1} direction="row">
-                        <Button variant="contained">Salvar</Button>
-                        <Button className={"buttons"} variant="outlined" color="error" >Deletar</Button>
+                        <Button variant="contained" onClick={onsubmit} >Salvar</Button>
+                        <Button className={"buttons"} variant="outlin   ed" color="error" >Deletar</Button>
                         <Button className={"buttons"} variant="outlined">Cancelar</Button>
                     </Stack>
                 </form>
