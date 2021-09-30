@@ -1,0 +1,15 @@
+.campoNumero {
+    display: flex;
+}
+
+.container {
+    max-width: 30%;
+    width: 100%;
+    margin-top: -15px;
+    margin-right: 1%;
+    margin-left: 1%;
+}
+
+
+
+
