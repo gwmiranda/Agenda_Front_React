@@ -4,6 +4,7 @@ import FormularioCadastro from "./components/Formulario/FormularioCadastro";
 import Tabela from "./components/Tabela/Tabela";
 import Cabecalho from "./components/Cabecalho/Cabecalho";
 
+import {validarNome, validarSobrenome, validarParentesco} from "./models/cadastro";
 
 class App extends Component{
    render() {
@@ -12,7 +13,11 @@ class App extends Component{
         <Cabecalho/>
         <div className={"div"}>
             <Tabela/>
-            <FormularioCadastro aoEnviar={aoEnviarForm} validarNome={validarNome} />
+            <FormularioCadastro aoEnviar={aoEnviarForm} validacoes={{
+                nome: validarNome,
+                sobrenome: validarSobrenome,
+                parentesco: validarParentesco
+            }} />
         </div>
         </>
      );
@@ -23,12 +28,6 @@ function aoEnviarForm(dados) {
     console.log(dados);
 }
 
-function validarNome (nome){
-    if(nome.length < 3 || nome.length > 40) {
-        return {valido:false, texto: "O Nome teve entre 3 e 40 letras"};
-    }else{
-        return {valido:true, texto: ""};
-    }
-}
+
 
 export default App;
