@@ -17,12 +17,23 @@ function FormularioCadastro({aoEnviar, validacoes}) {
         setErros(novoEstado);
     }
 
+    function possoEnviar(){
+        for(let campo in erros){
+            if(!erros[campo].valido){
+                return false;
+            }
+        }
+        return true;
+    }
+
     return (
         <div className={"container"}>
             <form
                 onSubmit={(event) => {
                     event.preventDefault();
-                    aoEnviar({nome,sobrenome, nascimento, parentesco});
+                    if (possoEnviar()) {
+                        aoEnviar({nome, sobrenome, nascimento, parentesco});
+                    }
                 }}
             >
 
@@ -51,7 +62,7 @@ function FormularioCadastro({aoEnviar, validacoes}) {
                     name={"sobrenome"}
                     variant="outlined"
                     margin="normal"
-                    // required
+                    required
                     fullWidth />
 
                 <TextField
@@ -76,11 +87,12 @@ function FormularioCadastro({aoEnviar, validacoes}) {
                     label="Parentesco"
                     name={"parentesco"}
                     margin="normal"
-                    // required
+                    required
                     fullWidth
                 />
                 <Button
-                    variant="contained"
+                    variant="outlined"
+                    color={"success"}
                     fullWidth
                 >Adicionar Número</Button>
                 <div className={"campoNumero"}>
