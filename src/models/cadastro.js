@@ -1,3 +1,5 @@
+import {getCurrentDate} from '../utils/Utils'
+
 function validarNome (nome){
     if(nome.length < 3 || nome.length > 40) {
         return {valido:false, texto: "O Nome teve entre 3 e 40 letras"};
@@ -22,4 +24,12 @@ function validarParentesco (parentesco){
     }
 }
 
-export {validarNome, validarSobrenome, validarParentesco}
+function validarNascimento (nascimento){
+    if(nascimento > getCurrentDate("-")) {
+        return {valido:false, texto: "A Data de Nascimento têm que ser inferior a hoje"};
+    }else{
+        return {valido:true, texto: ""};
+    }
+}
+
+export {validarNome, validarSobrenome, validarParentesco, validarNascimento}
