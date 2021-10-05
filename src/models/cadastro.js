@@ -32,4 +32,5 @@ function validarNascimento (nascimento){
     }
 }
 
+
 export {validarNome, validarSobrenome, validarParentesco, validarNascimento}

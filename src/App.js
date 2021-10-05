@@ -5,21 +5,24 @@ import Tabela from "./components/Tabela/Tabela";
 import Cabecalho from "./components/Cabecalho/Cabecalho";
 
 import {validarNome, validarSobrenome, validarParentesco, validarNascimento} from "./models/cadastro";
+import DadosAPI from "./components/dadosApi/DadosAPI";
 
 class App extends Component{
-   render() {
+    render() {
+
         return (
         <>
-        <Cabecalho/>
-        <div className={"div"}>
-            <Tabela/>
-            <FormularioCadastro aoEnviar={aoEnviarForm} validacoes={{
-                nome: validarNome,
-                sobrenome: validarSobrenome,
-                parentesco: validarParentesco,
-                nascimento: validarNascimento
-            }} />
-        </div>
+            <Cabecalho/>
+            <div className={"div"}>
+                <Tabela/>
+                <FormularioCadastro aoEnviar={aoEnviarForm} validacoes={{
+                    nome: validarNome,
+                    sobrenome: validarSobrenome,
+                    parentesco: validarParentesco,
+                    nascimento: validarNascimento
+                }} />
+            </div>
+            <DadosAPI/>
         </>
      );
    };
