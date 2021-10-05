@@ -1,6 +1,5 @@
 import React, {Component} from "react";
-import api from "../../Api";
-
+import api from "../../api/Api";
 
 class dadosAPI extends Component {
     state = {
@@ -22,10 +21,9 @@ class dadosAPI extends Component {
             <div>
                 <h1>Pessoas</h1>
                 {pessoas.map(pessoa => (
-
-                    <li key={pessoa.id}>
+                    <div key={pessoa.id}>
                         <h2>Nome: {pessoa.nome}</h2>
-                    </li>
+                    </div>
                 ))}
             </div>
         )

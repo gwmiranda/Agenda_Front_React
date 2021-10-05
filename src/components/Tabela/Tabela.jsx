@@ -1,9 +1,11 @@
 import * as React from 'react';
 import {DataGrid} from "@mui/x-data-grid";
 import "./Tabela.css";
+import "../dados/DadosAPI"
 
 
 export default function Tabela() {
+
     return (
         <div className={"grid"}>
             <DataGrid
@@ -45,22 +47,7 @@ export default function Tabela() {
                         sobrenome: 'Miranda',
                         nascimento: '11/03/2002',
                         parentesco: 'primo',
-                    },
-                    {
-                        id: 2,
-                        nome: 'Guilherme',
-                        sobrenome: 'Miranda',
-                        nascimento: '11/03/2002',
-                        parentesco: 'primo',
-                    },
-                    {
-                        id: 3,
-                        nome: 'Guilherme',
-                        sobrenome: 'Miranda',
-                        nascimento: '11/03/2002',
-                        parentesco: 'primo',
-                    },
-
+                    }
                 ]}
             />
         </div>

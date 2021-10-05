@@ -5,7 +5,7 @@ import Tabela from "./components/Tabela/Tabela";
 import Cabecalho from "./components/Cabecalho/Cabecalho";
 
 import {validarNome, validarSobrenome, validarParentesco, validarNascimento} from "./models/cadastro";
-import DadosAPI from "./components/dadosApi/DadosAPI";
+import DadosAPI from "./components/dados/DadosAPI";
 
 class App extends Component{
     render() {
