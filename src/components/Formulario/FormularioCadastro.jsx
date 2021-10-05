@@ -8,6 +8,7 @@ function FormularioCadastro({aoEnviar, validacoes}) {
     const [sobrenome, setSobrenome] = useState("");
     const [nascimento, setNascimento] = useState("");
     const [parentesco, setParentesco] = useState("");
+    const [telefones, setTelefones] = useState([]);
     const [erros, setErros] = useState({ nome:{valido: true, texto: ""}, sobrenome:{valido: true, texto: ""}, parentesco:{valido: true, texto: ""}, nascimento:{valido: true, texto: ""}});
 
     function validarCampos(event){
@@ -18,12 +19,26 @@ function FormularioCadastro({aoEnviar, validacoes}) {
     }
 
     function possoEnviar(){
-        for(let campo in erros){
-            if(!erros[campo].valido){
+        for ( let campo in erros){
+            if ( !erros[campo].valido){
                 return false;
-            }
-        }
+            };
+        };
         return true;
+    };
+
+    const adicionarCampoNumero = (e) => {
+        e.preventDefault();
+        setTelefones([...telefones, ""]);
+    };
+
+    const handleChangeTelefone = (e, index) => {
+        telefones[index] = e.target.value;
+        setTelefones([...telefones]);
+    };
+
+    const handleRemoverCampoBotao = (posicao) => {
+        setTelefones([...telefones.filter((_, index) => index !== posicao)])
     }
 
     return (
@@ -32,11 +47,10 @@ function FormularioCadastro({aoEnviar, validacoes}) {
                 onSubmit={(event) => {
                     event.preventDefault();
                     if (possoEnviar()) {
-                        aoEnviar({nome, sobrenome, nascimento, parentesco});
+                        aoEnviar({nome, sobrenome, nascimento, parentesco, telefones});
                     }
                 }}
             >
-
                 <TextField
                     value={nome}
                     onChange={(event) => {setNome(event.target.value)}}
@@ -76,7 +90,7 @@ function FormularioCadastro({aoEnviar, validacoes}) {
                     name="nascimento"
                     type={"date"}
                     margin="normal"
-                    // required
+                    required
                     fullWidth
                     InputLabelProps={{ shrink: true }}
                     />
@@ -94,23 +108,40 @@ function FormularioCadastro({aoEnviar, validacoes}) {
                     required
                     fullWidth
                 />
+
                 <Button
                     variant="outlined"
                     color={"success"}
+                    onClick={adicionarCampoNumero}
                     fullWidth
                 >Adicionar Número</Button>
-                <div className={"campoNumero"}>
-                    <TextField
-                        id="numero"
-                        label="Número"
-                        type={"number"}
-                        margin="normal"
-                        // required
 
-                    />
-                    <IconButton><DeleteIcon/></IconButton>
+                <div >
+                    {
+                        telefones.map((telefone, index )=> (
+                            <div key={index} className={"campoNumero"}>
+                                <TextField
+                                    id={`telefone-${index + 1}`}
+                                    label={`Telefone ${index + 1}`}
+                                    onChange={event => handleChangeTelefone(event, index)}
+                                    type={"number"}
+                                    margin="normal"
+                                    value={telefone}
+                                    required
+                                />
+                                <IconButton
+                                    onClick={() => {handleRemoverCampoBotao(index)}}
+                                ><DeleteIcon/></IconButton>
+                            </div>
+
+                        ))
+                    }
+
+
+
                 </div>
-                <Stack spacing={1} direction="row">
+
+                <Stack className={"containerButtons"} spacing={1} direction="row" >
                     <Button type={"submit"} variant="contained" onClick={onsubmit} >Salvar</Button>
                     <Button className={"buttons"} variant="outlined" color="error" >Deletar</Button>
                     <Button className={"buttons"} variant="outlined">Cancelar</Button>
