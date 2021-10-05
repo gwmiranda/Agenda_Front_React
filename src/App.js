@@ -5,7 +5,6 @@ import Tabela from "./components/Tabela/Tabela";
 import Cabecalho from "./components/Cabecalho/Cabecalho";
 
 import {validarNome, validarSobrenome, validarParentesco, validarNascimento} from "./models/cadastro";
-import DadosAPI from "./components/dados/DadosAPI";
 
 class App extends Component{
     render() {
@@ -22,7 +21,6 @@ class App extends Component{
                     nascimento: validarNascimento
                 }} />
             </div>
-            <DadosAPI/>
         </>
      );
    };
