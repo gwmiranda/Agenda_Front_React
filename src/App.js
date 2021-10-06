@@ -4,7 +4,7 @@ import FormularioCadastro from "./components/Formulario/FormularioCadastro";
 import Tabela from "./components/Tabela/Tabela";
 import Cabecalho from "./components/Cabecalho/Cabecalho";
 
-import {validarNome, validarSobrenome, validarParentesco, validarNascimento} from "./models/cadastro";
+import {validarNome, validarSobrenome, validarNascimento} from "./models/cadastro";
 
 class App extends Component{
     render() {
@@ -17,7 +17,6 @@ class App extends Component{
                 <FormularioCadastro aoEnviar={aoEnviarForm} validacoes={{
                     nome: validarNome,
                     sobrenome: validarSobrenome,
-                    parentesco: validarParentesco,
                     nascimento: validarNascimento
                 }} />
             </div>

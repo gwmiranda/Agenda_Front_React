@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Button, IconButton, Stack, TextField} from "@material-ui/core";
 import {ReactComponent as DeleteIcon} from '../../images/remove.svg';
 import "./FormularioCadastro.css";
+import api from "../../services/Api";
 
 function FormularioCadastro({aoEnviar, validacoes}) {
     const [nome, setNome] = useState("");
@@ -9,7 +10,7 @@ function FormularioCadastro({aoEnviar, validacoes}) {
     const [nascimento, setNascimento] = useState("");
     const [parentesco, setParentesco] = useState("");
     const [telefones, setTelefones] = useState([]);
-    const [erros, setErros] = useState({ nome:{valido: true, texto: ""}, sobrenome:{valido: true, texto: ""}, parentesco:{valido: true, texto: ""}, nascimento:{valido: true, texto: ""}});
+    const [erros, setErros] = useState({ nome:{valido: true, texto: ""}, sobrenome:{valido: true, texto: ""}, nascimento:{valido: true, texto: ""}});
 
     function validarCampos(event){
         const {name, value} = event.target;
@@ -41,6 +42,15 @@ function FormularioCadastro({aoEnviar, validacoes}) {
         setTelefones([...telefones.filter((_, index) => index !== posicao)])
     }
 
+    async function salvarPessoa() {
+        await api.post("/pessoa", {
+            nome: nome,
+            sobrenome: sobrenome,
+            parentesco: parentesco,
+            nascimento: nascimento
+        });
+    }
+
     return (
         <div className={"container"}>
             <form
@@ -48,6 +58,7 @@ function FormularioCadastro({aoEnviar, validacoes}) {
                     event.preventDefault();
                     if (possoEnviar()) {
                         aoEnviar({nome, sobrenome, nascimento, parentesco, telefones});
+                        salvarPessoa()
                     }
                 }}
             >
@@ -98,14 +109,10 @@ function FormularioCadastro({aoEnviar, validacoes}) {
                 <TextField
                     value={parentesco}
                     onChange={event => {setParentesco(event.target.value)}}
-                    onBlur={validarCampos}
-                    error={!erros.parentesco.valido}
-                    helperText={erros.parentesco.texto}
                     id="parentesco"
                     label="Parentesco"
                     name={"parentesco"}
                     margin="normal"
-                    required
                     fullWidth
                 />
 

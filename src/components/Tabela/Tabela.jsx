@@ -2,7 +2,7 @@ import * as React from 'react';
 import {DataGrid} from "@mui/x-data-grid";
 import "./Tabela.css";
 import {Component} from "react";
-import api from "../../api/Api";
+import api from "../../services/Api";
 
 export default class Tabela extends Component{
 

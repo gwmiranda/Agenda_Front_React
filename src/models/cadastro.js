@@ -16,14 +16,6 @@ function validarSobrenome (sobrenome){
     }
 }
 
-function validarParentesco (parentesco){
-    if(parentesco.length < 2 || parentesco.length > 20) {
-        return {valido:false, texto: "O Parentesco teve entre 2 e 20 letras"};
-    }else{
-        return {valido:true, texto: ""};
-    }
-}
-
 function validarNascimento (nascimento){
     if(nascimento > getCurrentDate("-")) {
         return {valido:false, texto: "A Data de Nascimento têm que ser inferior a hoje"};
@@ -33,4 +25,4 @@ function validarNascimento (nascimento){
 }
 
 
-export {validarNome, validarSobrenome, validarParentesco, validarNascimento}
+export {validarNome, validarSobrenome, validarNascimento}
