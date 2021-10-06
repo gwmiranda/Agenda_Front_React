@@ -47,7 +47,8 @@ function FormularioCadastro({aoEnviar, validacoes}) {
             nome: nome,
             sobrenome: sobrenome,
             parentesco: parentesco,
-            nascimento: nascimento
+            nascimento: nascimento,
+            contato: telefones
         });
         limparCampos();
     }
