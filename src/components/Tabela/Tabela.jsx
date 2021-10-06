@@ -4,6 +4,45 @@ import "./Tabela.css";
 import {Component} from "react";
 import api from "../../services/Api";
 
+const columns = [
+    {
+        field: 'id',
+        headerName: "ID",
+        width: 50,
+        align: "center",
+        headerAlign: "center",
+    },
+    {
+        field: 'nome',
+        headerName: "Nome",
+        width: 230,
+        align: "center",
+        headerAlign: "center",
+    },
+    {
+        field: 'sobrenome',
+        headerName: "Sobrenome",
+        width: 230,
+        align: "center",
+        headerAlign: "center"
+    },
+    {
+        field: 'nascimento' ,
+        headerName: "Data de Nascimento",
+        width: 190,
+        align: "center",
+        headerAlign: "center",
+        type: "date",
+    },
+    {
+        field: 'parentesco',
+        headerName: "Parentesco",
+        width: 200,
+        align: "center",
+        headerAlign: "center"
+    }
+]
+
 export default class Tabela extends Component{
 
     state = {
@@ -33,37 +72,7 @@ export default class Tabela extends Component{
         return (
             <div className={"grid"}>
                 <DataGrid
-                    columns={[
-                        {
-                            field: 'nome',
-                            headerName: "Nome",
-                            width: 250,
-                            align: "center",
-                            headerAlign: "center",
-                        },
-                        {
-                            field: 'sobrenome',
-                            headerName: "Sobrenome",
-                            width: 250,
-                            align: "center",
-                            headerAlign: "center"
-                        },
-                        {
-                            field: 'nascimento' ,
-                            headerName: "Data de Nascimento",
-                            width: 190,
-                            align: "center",
-                            headerAlign: "center",
-                            type: "date",
-                        },
-                        {
-                            field: 'parentesco',
-                            headerName: "Parentesco",
-                            width: 200,
-                            align: "center",
-                            headerAlign: "center"
-                        }
-                    ]}
+                    columns={columns}
                     rows={listaPessoa}
                 />
             </div>
