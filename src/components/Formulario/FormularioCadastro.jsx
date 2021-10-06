@@ -49,6 +49,15 @@ function FormularioCadastro({aoEnviar, validacoes}) {
             parentesco: parentesco,
             nascimento: nascimento
         });
+        limparCampos();
+    }
+
+    function limparCampos(){
+        setNome("");
+        setSobrenome("");
+        setNascimento("");
+        setParentesco("");
+        setTelefones([]);
     }
 
     return (
@@ -151,7 +160,7 @@ function FormularioCadastro({aoEnviar, validacoes}) {
                 <Stack className={"containerButtons"} spacing={1} direction="row" >
                     <Button type={"submit"} variant="contained" onClick={onsubmit} >Salvar</Button>
                     <Button className={"buttons"} variant="outlined" color="error" >Deletar</Button>
-                    <Button className={"buttons"} variant="outlined">Cancelar</Button>
+                    <Button className={"buttons"} variant="outlined" onClick={limparCampos}>Cancelar</Button>
                 </Stack>
             </form>
         </div>
