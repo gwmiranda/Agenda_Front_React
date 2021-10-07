@@ -45,6 +45,14 @@ const columns = [
 
 export default class Tabela extends Component{
 
+    _handleMudancaPessoaSelecionada(dados){
+        this._alteraPessoa(dados);
+    }
+
+    _alteraPessoa(pessoa){
+        this.props.alteraPessoa(pessoa);
+    }
+
     state = {
         pessoas: [],
     }
@@ -56,7 +64,6 @@ export default class Tabela extends Component{
 
 
     render() {
-
         const {pessoas} = this.state;
 
         const listaPessoa = pessoas.map(pessoa => (
@@ -74,6 +81,8 @@ export default class Tabela extends Component{
                 <DataGrid
                     columns={columns}
                     rows={listaPessoa}
+                    onRowClick={(rowData) => this._handleMudancaPessoaSelecionada(rowData.row)}
+
                 />
             </div>
         );

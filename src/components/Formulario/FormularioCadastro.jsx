@@ -4,7 +4,7 @@ import {ReactComponent as DeleteIcon} from '../../images/remove.svg';
 import "./FormularioCadastro.css";
 import api from "../../services/Api";
 
-function FormularioCadastro({aoEnviar, validacoes}) {
+function FormularioCadastro({aoEnviar, validacoes, pessoaClick}) {
     const [nome, setNome] = useState("");
     const [sobrenome, setSobrenome] = useState("");
     const [nascimento, setNascimento] = useState("");
@@ -54,11 +54,15 @@ function FormularioCadastro({aoEnviar, validacoes}) {
     }
 
     function limparCampos(){
-        setNome("");
-        setSobrenome("");
-        setNascimento("");
-        setParentesco("");
-        setTelefones([]);
+        // setNome("");
+        // setSobrenome("");
+        // setNascimento("");
+        // setParentesco("");
+        // setTelefones([]);
+        setNome(pessoaClick.nome);
+        setSobrenome(pessoaClick.sobrenome);
+        setNascimento(pessoaClick.nascimento);
+        setParentesco(pessoaClick.parentesco);
     }
 
     return (

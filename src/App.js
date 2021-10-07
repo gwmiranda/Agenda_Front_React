@@ -7,18 +7,32 @@ import Cabecalho from "./components/Cabecalho/Cabecalho";
 import {validarNome, validarSobrenome, validarNascimento} from "./models/cadastro";
 
 class App extends Component{
-    render() {
 
+    constructor() {
+        super();
+        this.state = {
+            pessoaSelecionada: "",
+        }
+    }
+
+    alteraPessoa(pessoa){
+        this.setState({pessoaSelecionada: pessoa})
+    }
+
+    render() {
         return (
         <>
             <Cabecalho/>
             <div className={"div"}>
-                <Tabela/>
-                <FormularioCadastro aoEnviar={aoEnviarForm} validacoes={{
+                <Tabela alteraPessoa={this.alteraPessoa.bind(this)} />
+                <FormularioCadastro
+                    aoEnviar={aoEnviarForm}
+                    validacoes={{
                     nome: validarNome,
                     sobrenome: validarSobrenome,
-                    nascimento: validarNascimento
-                }} />
+                    nascimento: validarNascimento}}
+                    pessoaClick={this.state.pessoaSelecionada}
+                />
             </div>
         </>
      );
@@ -28,7 +42,5 @@ class App extends Component{
 function aoEnviarForm(dados) {
     console.log(dados);
 }
-
-
 
 export default App;
