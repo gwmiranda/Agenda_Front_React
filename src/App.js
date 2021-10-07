@@ -26,7 +26,6 @@ class App extends Component{
             <div className={"div"}>
                 <Tabela alteraPessoa={this.alteraPessoa.bind(this)} />
                 <FormularioCadastro
-                    aoEnviar={aoEnviarForm}
                     validacoes={{
                     nome: validarNome,
                     sobrenome: validarSobrenome,
@@ -39,8 +38,5 @@ class App extends Component{
    };
 };
 
-function aoEnviarForm(dados) {
-    console.log(dados);
-}
 
 export default App;

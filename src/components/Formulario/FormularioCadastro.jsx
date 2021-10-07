@@ -4,7 +4,8 @@ import {ReactComponent as DeleteIcon} from '../../images/remove.svg';
 import "./FormularioCadastro.css";
 import api from "../../services/Api";
 
-function FormularioCadastro({aoEnviar, validacoes, pessoaClick}) {
+function FormularioCadastro({validacoes, pessoaClick}) {
+    const [id, setId] = useState("");
     const [nome, setNome] = useState("");
     const [sobrenome, setSobrenome] = useState("");
     const [nascimento, setNascimento] = useState("");
@@ -43,26 +44,49 @@ function FormularioCadastro({aoEnviar, validacoes, pessoaClick}) {
     }
 
     async function salvarPessoa() {
-        await api.post("/pessoa", {
-            nome: nome,
-            sobrenome: sobrenome,
-            parentesco: parentesco,
-            nascimento: nascimento,
-            contato: telefones
-        });
-        limparCampos();
+        if(id !== '' || id == undefined){
+            await api.put(`/pessoa/${id}`,{
+                nome: nome,
+                sobrenome: sobrenome,
+                parentesco: parentesco,
+                nascimento: nascimento,
+                contato: telefones
+            });
+            limparCampos();
+            console.log("update")
+        }else {
+            await api.post("/pessoa", {
+                nome: nome,
+                sobrenome: sobrenome,
+                parentesco: parentesco,
+                nascimento: nascimento,
+                contato: telefones
+            });
+            limparCampos();
+            console.log("salvo")
+        }
+
     }
 
-    function limparCampos(){
-        // setNome("");
-        // setSobrenome("");
-        // setNascimento("");
-        // setParentesco("");
-        // setTelefones([]);
+    async function deletarPessoa() {
+        await api.delete(`/pessoa/${id}`)
+        limparCampos()
+    }
+
+    function preencherForm(){
+        setId(pessoaClick.id)
         setNome(pessoaClick.nome);
         setSobrenome(pessoaClick.sobrenome);
         setNascimento(pessoaClick.nascimento);
         setParentesco(pessoaClick.parentesco);
+    }
+
+    function limparCampos(){
+        setNome("");
+        setSobrenome("");
+        setNascimento("");
+        setParentesco("");
+        setTelefones([]);
     }
 
     return (
@@ -71,7 +95,6 @@ function FormularioCadastro({aoEnviar, validacoes, pessoaClick}) {
                 onSubmit={(event) => {
                     event.preventDefault();
                     if (possoEnviar()) {
-                        aoEnviar({nome, sobrenome, nascimento, parentesco, telefones});
                         salvarPessoa()
                     }
                 }}
@@ -154,18 +177,16 @@ function FormularioCadastro({aoEnviar, validacoes, pessoaClick}) {
                                     onClick={() => {handleRemoverCampoBotao(index)}}
                                 ><DeleteIcon/></IconButton>
                             </div>
-
                         ))
                     }
-
-
-
                 </div>
 
                 <Stack className={"containerButtons"} spacing={1} direction="row" >
                     <Button type={"submit"} variant="contained" onClick={onsubmit} >Salvar</Button>
-                    <Button className={"buttons"} variant="outlined" color="error" >Deletar</Button>
+                    <Button className={"buttons"} variant="outlined" onClick={deletarPessoa} color="error" >Deletar</Button>
                     <Button className={"buttons"} variant="outlined" onClick={limparCampos}>Cancelar</Button>
+                    <Button className={"buttons"} variant="outlined" onClick={preencherForm} color="error" >Atualizar</Button>
+
                 </Stack>
             </form>
         </div>
