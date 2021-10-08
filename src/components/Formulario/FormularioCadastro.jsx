@@ -11,7 +11,7 @@ function FormularioCadastro({validacoes, pessoaClick}) {
     const [nascimento, setNascimento] = useState("");
     const [parentesco, setParentesco] = useState("");
     const [telefones, setTelefones] = useState([]);
-    const [erros, setErros] = useState({ nome:{valido: true, texto: ""}, sobrenome:{valido: true, texto: ""}, nascimento:{valido: true, texto: ""}});
+    const [erros, setErros] = useState({ nome:{valido: true, texto: ""}, sobrenome:{valido: true, texto: ""}, nascimento:{valido: true, texto: ""},contato:{valido: true, texto: ""}});
 
     function validarCampos(event){
         const {name, value} = event.target;
@@ -176,10 +176,15 @@ function FormularioCadastro({validacoes, pessoaClick}) {
                                     id={`telefone-${index + 1}`}
                                     label={`Telefone ${index + 1}`}
                                     onChange={event => handleChangeTelefone(event, index)}
-                                    type={"number"}
+                                    onBlur={validarCampos}
+                                    error={!erros.contato.valido}
+                                    helperText={erros.contato.texto}
+                                    name={"contato"}
+                                    type={"text"}
                                     margin="normal"
                                     value={telefone}
                                     required
+                                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]'}}
                                 />
                                 <IconButton
                                     onClick={() => {handleRemoverCampoBotao(index)}}

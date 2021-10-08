@@ -24,5 +24,13 @@ function validarNascimento (nascimento){
     }
 }
 
+function validarContato (contato){
+    if(contato.length < 8 || contato.length > 11) {
+        return {valido:false, texto: "O número deve ter entre 8 e 11 dígitos"};
+    }else{
+        return {valido:true, texto: ""};
+    }
+}
 
-export {validarNome, validarSobrenome, validarNascimento}
+
+export {validarNome, validarSobrenome, validarNascimento, validarContato}
