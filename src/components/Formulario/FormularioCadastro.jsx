@@ -180,11 +180,10 @@ function FormularioCadastro({validacoes, pessoaClick}) {
                                     error={!erros.contato.valido}
                                     helperText={erros.contato.texto}
                                     name={"contato"}
-                                    type={"text"}
+                                    type={"number"}
                                     margin="normal"
                                     value={telefone}
                                     required
-                                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]'}}
                                 />
                                 <IconButton
                                     onClick={() => {handleRemoverCampoBotao(index)}}
