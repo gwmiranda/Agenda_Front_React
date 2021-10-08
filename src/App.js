@@ -4,7 +4,7 @@ import FormularioCadastro from "./components/Formulario/FormularioCadastro";
 import Tabela from "./components/Tabela/Tabela";
 import Cabecalho from "./components/Cabecalho/Cabecalho";
 
-import {validarNome, validarSobrenome, validarNascimento, validarContato} from "./models/cadastro";
+import {validarNome, validarSobrenome, validarNascimento, validarContato, validarParentesco} from "./models/cadastro";
 
 class App extends Component{
 
@@ -30,6 +30,7 @@ class App extends Component{
                     nome: validarNome,
                     sobrenome: validarSobrenome,
                     nascimento: validarNascimento,
+                    parentesco: validarParentesco,
                     contato: validarContato}}
                     pessoaClick={this.state.pessoaSelecionada}
                 />

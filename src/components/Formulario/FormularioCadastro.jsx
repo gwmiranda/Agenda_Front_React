@@ -11,7 +11,7 @@ function FormularioCadastro({validacoes, pessoaClick}) {
     const [nascimento, setNascimento] = useState("");
     const [parentesco, setParentesco] = useState("");
     const [telefones, setTelefones] = useState([]);
-    const [erros, setErros] = useState({ nome:{valido: true, texto: ""}, sobrenome:{valido: true, texto: ""}, nascimento:{valido: true, texto: ""},contato:{valido: true, texto: ""}});
+    const [erros, setErros] = useState({ nome:{valido: true, texto: ""}, sobrenome:{valido: true, texto: ""}, nascimento:{valido: true, texto: ""}, parentesco:{valido: true, texto: ""},contato:{valido: true, texto: ""}});
 
     function validarCampos(event){
         const {name, value} = event.target;
@@ -154,6 +154,9 @@ function FormularioCadastro({validacoes, pessoaClick}) {
                 <TextField
                     value={parentesco}
                     onChange={event => {setParentesco(event.target.value)}}
+                    onBlur={validarCampos}
+                    error={!erros.parentesco.valido}
+                    helperText={erros.parentesco.texto}
                     id="parentesco"
                     label="Parentesco"
                     name={"parentesco"}

@@ -32,5 +32,12 @@ function validarContato (contato){
     }
 }
 
+function validarParentesco (parentesco){
+    if(parentesco.length > 20) {
+        return {valido:false, texto: "O parentesco não pode ter mais de 20 caracteres"};
+    }else{
+        return {valido:true, texto: ""};
+    }
+}
 
-export {validarNome, validarSobrenome, validarNascimento, validarContato}
+export {validarNome, validarSobrenome, validarNascimento, validarContato, validarParentesco}
