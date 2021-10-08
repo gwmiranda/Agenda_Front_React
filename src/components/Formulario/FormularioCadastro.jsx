@@ -44,7 +44,7 @@ function FormularioCadastro({validacoes, pessoaClick}) {
     }
 
     async function salvarPessoa() {
-        if(id !== '' || id == undefined){
+        if(id !== '' || id === undefined){
             await api.put(`/pessoa/${id}`,{
                 nome: nome,
                 sobrenome: sobrenome,
@@ -73,12 +73,20 @@ function FormularioCadastro({validacoes, pessoaClick}) {
         limparCampos()
     }
 
-    function preencherForm(){
-        setId(pessoaClick.id)
-        setNome(pessoaClick.nome);
-        setSobrenome(pessoaClick.sobrenome);
-        setNascimento(pessoaClick.nascimento);
-        setParentesco(pessoaClick.parentesco);
+    async function preencherForm() {
+        const response = await api.get(`/pessoa/${pessoaClick.id}`);
+        const pessoa = response.data;
+
+        setId(pessoa.id)
+        setNome(pessoa.nome);
+        setSobrenome(pessoa.sobrenome);
+        setNascimento(pessoa.nascimento);
+        setParentesco(pessoa.parentesco);
+        let listaTelefone = []
+        pessoa.contato.map(contato => {
+            listaTelefone.push(contato.contato)
+        })
+        setTelefones(listaTelefone);
     }
 
     function limparCampos(){
