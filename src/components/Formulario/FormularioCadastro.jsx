@@ -97,7 +97,6 @@ function FormularioCadastro({validacoes, pessoaTabela}) {
     }
 
     function limparCampos() {
-        setId(undefined)
         setNome("");
         setSobrenome("");
         setNascimento("");
