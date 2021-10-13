@@ -50,12 +50,16 @@ export default class Tabela extends Component{
     }
 
     async _alteraPessoa(pessoa) {
-        let pessoaAPI = await api.get(`/pessoa/${pessoa.id}`);
-        this.props.alteraPessoa(pessoaAPI);
+        if(pessoa.id !== this.state.pessoaClick.id){
+            this.setState({pessoaClick: pessoa})
+            let pessoaAPI = await api.get(`/pessoa/${pessoa.id}`);
+            this.props.alteraPessoa(pessoaAPI);
+        }
     }
 
     state = {
         pessoas: [],
+        pessoaClick: ''
     }
 
     async componentDidMount() {
