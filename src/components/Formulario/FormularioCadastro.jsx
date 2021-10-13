@@ -5,6 +5,7 @@ import "./FormularioCadastro.css";
 import api from "../../services/Api";
 
 function FormularioCadastro({validacoes, pessoaClick}) {
+
     const [id, setId] = useState("");
     const [nome, setNome] = useState("");
     const [sobrenome, setSobrenome] = useState("");
@@ -12,25 +13,28 @@ function FormularioCadastro({validacoes, pessoaClick}) {
     const [parentesco, setParentesco] = useState("");
     const [telefones, setTelefones] = useState([]);
     const [erros, setErros] = useState({
-        nome:{valido: true, texto: ""},
-        sobrenome:{valido: true, texto: ""},
-        nascimento:{valido: true, texto: ""},
-        parentesco:{valido: true, texto: ""},
-        contato:{valido: true, texto: ""}});
+        nome: {valido: true, texto: ""},
+        sobrenome: {valido: true, texto: ""},
+        nascimento: {valido: true, texto: ""},
+        parentesco: {valido: true, texto: ""},
+        contato: {valido: true, texto: ""}
+    });
 
-    function validarCampos(event){
+    function validarCampos(event) {
         const {name, value} = event.target;
         const novoEstado = {...erros};
         novoEstado[name] = validacoes[name](value);
         setErros(novoEstado);
     }
 
-    function possoEnviar(){
-        for ( let campo in erros){
-            if ( !erros[campo].valido){
+    function possoEnviar() {
+        for (let campo in erros) {
+            if (!erros[campo].valido) {
                 return false;
-            };
-        };
+            }
+            ;
+        }
+        ;
         return true;
     };
 
@@ -49,8 +53,8 @@ function FormularioCadastro({validacoes, pessoaClick}) {
     }
 
     async function salvarPessoa() {
-        if(id !== '' || id === undefined){
-            await api.put(`/pessoa/${id}`,{
+        if (id !== '' || id === undefined) {
+            await api.put(`/pessoa/${id}`, {
                 nome: nome,
                 sobrenome: sobrenome,
                 parentesco: parentesco,
@@ -59,7 +63,7 @@ function FormularioCadastro({validacoes, pessoaClick}) {
             });
             limparCampos();
             console.log("update")
-        }else {
+        } else {
             await api.post("/pessoa", {
                 nome: nome,
                 sobrenome: sobrenome,
@@ -70,7 +74,6 @@ function FormularioCadastro({validacoes, pessoaClick}) {
             limparCampos();
             console.log("salvo")
         }
-
     }
 
     async function deletarPessoa() {
@@ -78,10 +81,11 @@ function FormularioCadastro({validacoes, pessoaClick}) {
         limparCampos()
     }
 
-    async function preencherForm() {
-        const response = await api.get(`/pessoa/${pessoaClick.id}`);
-        const pessoa = response.data;
+    if(pessoaClick.id !== id && pessoaClick.id !== undefined){
+        preencherForm(pessoaClick)
+    }
 
+    function preencherForm(pessoa) {
         setId(pessoa.id)
         setNome(pessoa.nome);
         setSobrenome(pessoa.sobrenome);
@@ -94,7 +98,8 @@ function FormularioCadastro({validacoes, pessoaClick}) {
         setTelefones(listaTelefone);
     }
 
-    function limparCampos(){
+    function limparCampos() {
+        setId(undefined)
         setNome("");
         setSobrenome("");
         setNascimento("");
@@ -103,17 +108,18 @@ function FormularioCadastro({validacoes, pessoaClick}) {
         limparValidacao();
     }
 
-    function limparValidacao(){
+    function limparValidacao() {
         setErros({
-            nome:{valido: true, texto: ""},
-            sobrenome:{valido: true, texto: ""},
-            nascimento:{valido: true, texto: ""},
-            parentesco:{valido: true, texto: ""},
-            contato:{valido: true, texto: ""}})
+            nome: {valido: true, texto: ""},
+            sobrenome: {valido: true, texto: ""},
+            nascimento: {valido: true, texto: ""},
+            parentesco: {valido: true, texto: ""},
+            contato: {valido: true, texto: ""}
+        })
     }
 
     return (
-        <div className={"container"}>
+        <div id={"form"} className={"container"}>
             <form
                 onSubmit={(event) => {
                     event.preventDefault();
@@ -124,7 +130,9 @@ function FormularioCadastro({validacoes, pessoaClick}) {
             >
                 <TextField
                     value={nome}
-                    onChange={(event) => {setNome(event.target.value)}}
+                    onChange={(event) => {
+                        setNome(event.target.value)
+                    }}
                     onBlur={validarCampos}
                     error={!erros.nome.valido}
                     helperText={erros.nome.texto}
@@ -134,11 +142,13 @@ function FormularioCadastro({validacoes, pessoaClick}) {
                     variant="outlined"
                     margin="normal"
                     required
-                    fullWidth />
+                    fullWidth/>
 
                 <TextField
                     value={sobrenome}
-                    onChange={event => {setSobrenome(event.target.value)}}
+                    onChange={event => {
+                        setSobrenome(event.target.value)
+                    }}
                     onBlur={validarCampos}
                     error={!erros.sobrenome.valido}
                     helperText={erros.sobrenome.texto}
@@ -148,11 +158,13 @@ function FormularioCadastro({validacoes, pessoaClick}) {
                     variant="outlined"
                     margin="normal"
                     required
-                    fullWidth />
+                    fullWidth/>
 
                 <TextField
                     value={nascimento}
-                    onChange={event => {setNascimento(event.target.value)}}
+                    onChange={event => {
+                        setNascimento(event.target.value)
+                    }}
                     onBlur={validarCampos}
                     error={!erros.nascimento.valido}
                     helperText={erros.nascimento.texto}
@@ -163,12 +175,14 @@ function FormularioCadastro({validacoes, pessoaClick}) {
                     margin="normal"
                     required
                     fullWidth
-                    InputLabelProps={{ shrink: true }}
-                    />
+                    InputLabelProps={{shrink: true}}
+                />
 
                 <TextField
                     value={parentesco}
-                    onChange={event => {setParentesco(event.target.value)}}
+                    onChange={event => {
+                        setParentesco(event.target.value)
+                    }}
                     onBlur={validarCampos}
                     error={!erros.parentesco.valido}
                     helperText={erros.parentesco.texto}
@@ -186,9 +200,9 @@ function FormularioCadastro({validacoes, pessoaClick}) {
                     fullWidth
                 >Adicionar Número</Button>
 
-                <div >
+                <div>
                     {
-                        telefones.map((telefone, index )=> (
+                        telefones.map((telefone, index) => (
                             <div key={index} className={"campoNumero"}>
                                 <TextField
                                     id={`telefone-${index + 1}`}
@@ -204,19 +218,20 @@ function FormularioCadastro({validacoes, pessoaClick}) {
                                     required
                                 />
                                 <IconButton
-                                    onClick={() => {handleRemoverCampoBotao(index)}}
+                                    onClick={() => {
+                                        handleRemoverCampoBotao(index)
+                                    }}
                                 ><DeleteIcon/></IconButton>
                             </div>
                         ))
                     }
                 </div>
 
-                <Stack className={"containerButtons"} spacing={1} direction="row" >
-                    <Button type={"submit"} variant="contained" onClick={onsubmit} >Salvar</Button>
-                    <Button className={"buttons"} variant="outlined" onClick={deletarPessoa} color="error" >Deletar</Button>
+                <Stack className={"containerButtons"} spacing={1} direction="row">
+                    <Button type={"submit"} variant="contained" onClick={onsubmit}>Salvar</Button>
+                    <Button className={"buttons"} variant="outlined" onClick={deletarPessoa}
+                            color="error">Deletar</Button>
                     <Button className={"buttons"} variant="outlined" onClick={limparCampos}>Cancelar</Button>
-                    <Button className={"buttons"} variant="outlined" onClick={preencherForm} color="error" >Atualizar</Button>
-
                 </Stack>
             </form>
         </div>

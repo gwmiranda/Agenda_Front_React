@@ -49,8 +49,9 @@ export default class Tabela extends Component{
         this._alteraPessoa(dados);
     }
 
-    _alteraPessoa(pessoa){
-        this.props.alteraPessoa(pessoa);
+    async _alteraPessoa(pessoa) {
+        let pessoaAPI = await api.get(`/pessoa/${pessoa.id}`);
+        this.props.alteraPessoa(pessoaAPI);
     }
 
     state = {
