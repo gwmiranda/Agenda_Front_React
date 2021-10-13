@@ -4,7 +4,7 @@ import {ReactComponent as DeleteIcon} from '../../images/remove.svg';
 import "./FormularioCadastro.css";
 import api from "../../services/Api";
 
-function FormularioCadastro({validacoes, pessoaClick}) {
+function FormularioCadastro({validacoes, pessoaTabela}) {
 
     const [id, setId] = useState("");
     const [nome, setNome] = useState("");
@@ -62,7 +62,6 @@ function FormularioCadastro({validacoes, pessoaClick}) {
                 contato: telefones
             });
             limparCampos();
-            console.log("update")
         } else {
             await api.post("/pessoa", {
                 nome: nome,
@@ -72,7 +71,6 @@ function FormularioCadastro({validacoes, pessoaClick}) {
                 contato: telefones
             });
             limparCampos();
-            console.log("salvo")
         }
     }
 
@@ -81,8 +79,8 @@ function FormularioCadastro({validacoes, pessoaClick}) {
         limparCampos()
     }
 
-    if(pessoaClick.id !== id && pessoaClick.id !== undefined){
-        preencherForm(pessoaClick)
+    if(pessoaTabela.id !== id && pessoaTabela.id !== undefined){
+         preencherForm(pessoaTabela)
     }
 
     function preencherForm(pessoa) {
@@ -92,7 +90,7 @@ function FormularioCadastro({validacoes, pessoaClick}) {
         setNascimento(pessoa.nascimento);
         setParentesco(pessoa.parentesco);
         let listaTelefone = []
-        pessoa.contato.map(contato => {
+        pessoa.contato.forEach(contato =>{
             listaTelefone.push(contato.contato)
         })
         setTelefones(listaTelefone);
@@ -228,10 +226,20 @@ function FormularioCadastro({validacoes, pessoaClick}) {
                 </div>
 
                 <Stack className={"containerButtons"} spacing={1} direction="row">
-                    <Button type={"submit"} variant="contained" onClick={onsubmit}>Salvar</Button>
-                    <Button className={"buttons"} variant="outlined" onClick={deletarPessoa}
-                            color="error">Deletar</Button>
-                    <Button className={"buttons"} variant="outlined" onClick={limparCampos}>Cancelar</Button>
+                    <Button
+                        type={"submit"}
+                        variant="contained"
+                        onClick={onsubmit}
+                    >Salvar</Button>
+                    <Button
+                        variant="outlined"
+                        onClick={deletarPessoa}
+                        color="error"
+                    >Deletar</Button>
+                    <Button
+                        variant="outlined"
+                        onClick={limparCampos}
+                    >Cancelar</Button>
                 </Stack>
             </form>
         </div>
