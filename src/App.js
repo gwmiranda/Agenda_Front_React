@@ -16,7 +16,7 @@ class App extends Component {
     }
 
     alteraPessoa(pessoa) {
-        this.setState({pessoaSelecionada: pessoa.data})
+        this.setState({pessoaSelecionada: pessoa})
     }
 
     render() {
@@ -34,6 +34,7 @@ class App extends Component {
                             contato: validarContato
                         }}
                         pessoaTabela={this.state.pessoaSelecionada}
+                        limparPessoa={this.alteraPessoa.bind(this)}
                     />
                 </div>
             </>

@@ -53,7 +53,7 @@ export default class Tabela extends Component{
         if(pessoa.id !== this.state.pessoaClick.id){
             this.setState({pessoaClick: pessoa})
             let pessoaAPI = await api.get(`/pessoa/${pessoa.id}`);
-            this.props.alteraPessoa(pessoaAPI);
+            this.props.alteraPessoa(pessoaAPI.data);
         }
     }
 

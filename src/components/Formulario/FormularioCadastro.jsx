@@ -4,7 +4,7 @@ import {ReactComponent as DeleteIcon} from '../../images/remove.svg';
 import "./FormularioCadastro.css";
 import api from "../../services/Api";
 
-function FormularioCadastro({validacoes, pessoaTabela}) {
+function FormularioCadastro({validacoes, pessoaTabela, limparPessoa}) {
 
     const [id, setId] = useState("");
     const [nome, setNome] = useState("");
@@ -53,7 +53,7 @@ function FormularioCadastro({validacoes, pessoaTabela}) {
     }
 
     async function salvarPessoa() {
-        if (id !== '' || id === undefined) {
+        if (id !== '' && id !== undefined) {
             await api.put(`/pessoa/${id}`, {
                 nome: nome,
                 sobrenome: sobrenome,
@@ -97,11 +97,13 @@ function FormularioCadastro({validacoes, pessoaTabela}) {
     }
 
     function limparCampos() {
+        setId(undefined)
         setNome("");
         setSobrenome("");
         setNascimento("");
         setParentesco("");
         setTelefones([]);
+        _limparPessoa({})
         limparValidacao();
     }
 
@@ -113,6 +115,10 @@ function FormularioCadastro({validacoes, pessoaTabela}) {
             parentesco: {valido: true, texto: ""},
             contato: {valido: true, texto: ""}
         })
+    }
+
+    function _limparPessoa(pessoa){
+        limparPessoa(pessoa)
     }
 
     return (
