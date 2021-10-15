@@ -8,10 +8,11 @@ import {validarContato, validarNascimento, validarNome, validarParentesco, valid
 
 class App extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             pessoaSelecionada: "",
+            atualizarTabela: 0,
         }
     }
 
@@ -19,12 +20,19 @@ class App extends Component {
         this.setState({pessoaSelecionada: pessoa})
     }
 
+    isAtualizaTabela(){
+        this.setState(state  => ({atualizarTabela: state.atualizarTabela + 1}))
+    }
+
     render() {
         return (
             <>
                 <Cabecalho/>
                 <div className={"div"}>
-                    <Tabela alteraPessoa={this.alteraPessoa.bind(this)}/>
+                    <Tabela
+                        alteraPessoa={this.alteraPessoa.bind(this)}
+                        atualizarTabela={this.state.atualizarTabela}
+                    />
                     <FormularioCadastro
                         validacoes={{
                             nome: validarNome,
@@ -33,8 +41,9 @@ class App extends Component {
                             parentesco: validarParentesco,
                             contato: validarContato
                         }}
-                        pessoaTabela={this.state.pessoaSelecionada}
-                        limparPessoa={this.alteraPessoa.bind(this)}
+                        pessoaTabela= {this.state.pessoaSelecionada}
+                        limparPessoa= {this.alteraPessoa.bind(this)}
+                        renderizarTabela={this.isAtualizaTabela.bind(this)}
                     />
                 </div>
             </>

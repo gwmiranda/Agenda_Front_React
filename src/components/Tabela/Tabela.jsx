@@ -59,16 +59,21 @@ export default class Tabela extends Component{
 
     state = {
         pessoas: [],
-        pessoaClick: ''
+        pessoaClick: '',
+        atualiza: '',
     }
 
-    async componentDidMount() {
+    async atualizarLista() {
         const response = await api.get('/pessoa');
         this.setState({pessoas: response.data});
+        this.setState({atualiza: this.props.atualizarTabela})
     }
 
-
     render() {
+        if(this.state.atualiza !== this.props.atualizarTabela){
+            this.atualizarLista()
+        }
+
         const {pessoas} = this.state;
 
         const listaPessoa = pessoas.map(pessoa => (
