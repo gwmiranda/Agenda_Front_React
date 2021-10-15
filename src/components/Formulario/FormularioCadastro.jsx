@@ -80,6 +80,7 @@ function FormularioCadastro({validacoes, pessoaTabela, limparPessoa, renderizarT
         await api.delete(`/pessoa/${id}`)
         limparCampos()
         _renderizarTabela()
+        setId(undefined)
     }
 
     if(pessoaTabela.id !== id && pessoaTabela.id !== undefined){
