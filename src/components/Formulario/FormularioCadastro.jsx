@@ -4,7 +4,7 @@ import {ReactComponent as DeleteIcon} from '../../images/remove.svg';
 import "./FormularioCadastro.css";
 import api from "../../services/Api";
 
-function FormularioCadastro({validacoes, pessoaTabela, limparPessoa, renderizarTabela}) {
+function FormularioCadastro({validacoes, pessoaTabela, limparPessoa, renderizarTabela, token}) {
 
     const [id, setId] = useState("");
     const [nome, setNome] = useState("");
@@ -60,6 +60,10 @@ function FormularioCadastro({validacoes, pessoaTabela, limparPessoa, renderizarT
                 parentesco: parentesco,
                 nascimento: nascimento,
                 contato: telefones
+            }, {
+                headers: {
+                    Authorization: token
+                }
             });
             limparCampos();
             _renderizarTabela()
@@ -70,6 +74,10 @@ function FormularioCadastro({validacoes, pessoaTabela, limparPessoa, renderizarT
                 parentesco: parentesco,
                 nascimento: nascimento,
                 contato: telefones
+            },{
+                headers: {
+                    Authorization: token
+                }
             });
             limparCampos();
             _renderizarTabela()
@@ -77,7 +85,11 @@ function FormularioCadastro({validacoes, pessoaTabela, limparPessoa, renderizarT
     }
 
     async function deletarPessoa() {
-        await api.delete(`/pessoa/${id}`)
+        await api.delete(`/pessoa/${id}`, {
+            headers: {
+                Authorization: token
+            }
+        })
         limparCampos()
         _renderizarTabela()
         setId(undefined)

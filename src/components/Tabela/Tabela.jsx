@@ -52,7 +52,9 @@ export default class Tabela extends Component{
     async _alteraPessoa(pessoa) {
         if(pessoa.id !== this.state.pessoaClick.id){
             this.setState({pessoaClick: pessoa})
-            let pessoaAPI = await api.get(`/pessoa/${pessoa.id}`);
+            let pessoaAPI = await api.get(`/pessoa/${pessoa.id}`, {headers: {
+                Authorization: this.state.token
+            }});
             this.props.alteraPessoa(pessoaAPI.data);
         }
     }
@@ -61,10 +63,20 @@ export default class Tabela extends Component{
         pessoas: [],
         pessoaClick: '',
         atualiza: '',
+        token: ''
+    }
+
+    verificaToken(){
+        this.state.token = this.props.token;
     }
 
     async atualizarLista() {
-        const response = await api.get('/pessoa');
+        this.verificaToken()
+        const response = await api.get('/pessoa', {
+            headers: {
+                        Authorization: this.state.token
+            }
+        });
         this.setState({pessoas: response.data});
         this.setState({atualiza: this.props.atualizarTabela})
     }
@@ -92,7 +104,6 @@ export default class Tabela extends Component{
                     columns={columns}
                     rows={listaPessoa}
                     onRowClick={(rowData) => this._handleMudancaPessoaSelecionada(rowData.row)}
-
                 />
             </div>
         );

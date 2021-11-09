@@ -1,0 +1,6 @@
+.form {
+    display: flex;
+    max-width: 30%;
+    width: 100%;
+    margin: auto;
+}
